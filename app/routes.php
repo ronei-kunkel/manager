@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use Slim\App;
 use Slim\Interfaces\RouteCollectorProxyInterface;
-use App\Infra\Controller\Github\PushNotifiedController;
+use App\Infra\Controller\GitHub\PushNotifiedController;
 
 return function (App $app) {
     $app->group('/api', function (RouteCollectorProxyInterface $group) {
