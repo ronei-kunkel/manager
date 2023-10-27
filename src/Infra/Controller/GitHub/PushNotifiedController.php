@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App\Infra\Controller\GitHub;
+namespace Manager\Infra\Controller\GitHub;
 
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;

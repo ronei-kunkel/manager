@@ -46,7 +46,8 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "src/"
+            "App\\": "boilerplate/",
+            "Manager\\": "src/"
         }
     },
     "autoload-dev": {

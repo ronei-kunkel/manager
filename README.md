@@ -2,34 +2,36 @@
 
 The system design concept
 
-## Event
+## Notification
 
 - id
 - Platform
   - hash
   - name
   - url
-- Type
+- Event
   - hash
   - ...
 
-## Data by hash type
+## Data by Event
 
 ### push
 
 - Repository
   - id
   - name
+  - description
+  - Platform
   - Owner
     - id
-    - user
+    - nickName
     - email
     - image
   - cloneUrl
   - defaultBranch
 - Merger
   - id
-  - user
+  - nickName
   - image
 - Commits
 
@@ -40,7 +42,7 @@ The system design concept
     - Author
       - id
       - email
-      - user
+      - nickName
     - Commiter
 
           when is a merge commit in GitHub, the Commiter have different values of Author, but have the same key attributes
