@@ -15,7 +15,6 @@ final class PushNotifiedController
 
   public function __invoke(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
   {
-    $response->getBody()->write(json_encode($request->getParsedBody()));
-    return $response->withHeader('Content-Type', 'application/json')->withStatus(200);
+    return $response->withHeader('Content-Type', 'application/json')->withStatus(501);
   }
 }
