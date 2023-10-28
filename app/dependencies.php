@@ -2,13 +2,15 @@
 
 declare(strict_types=1);
 
-use App\Application\Settings\SettingsInterface;
+use App\Settings\SettingsInterface;
 use DI\ContainerBuilder;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use Monolog\Processor\UidProcessor;
 use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
+use Manager\Infra\Controller\GitHub\GithubPushEventController;
+use Manager\Application\GitHub\Push\UseCase\Deployment;
 
 return function (ContainerBuilder $containerBuilder) {
     $containerBuilder->addDefinitions([
@@ -26,5 +28,11 @@ return function (ContainerBuilder $containerBuilder) {
 
             return $logger;
         },
+        GithubPushEventController::class => function (ContainerInterface $c) {
+            return new GithubPushEventController($c->get(Deployment::class));
+        },
+        Deployment::class => function (ContainerInterface $c) {
+            return new Deployment();
+        }
     ]);
 };

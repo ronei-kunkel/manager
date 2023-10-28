@@ -13,12 +13,18 @@ final class Push extends Event
   private const HASH = 'push';
 
   public function __construct(
+    private int $id,
     private Platform $platform,
     private Repository $repository,
     private Merger $merger,
     private CommitCollection $commits,
     private string $targetBranchReference
   ) {
+  }
+
+  public function id(): int
+  {
+    return $this->id;
   }
 
   public function hash(): string

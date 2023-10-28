@@ -8,4 +8,5 @@ abstract class Event
 {
   abstract public function hash(): string;
   abstract public function platform(): Platform;
+  abstract public function id(): int;
 }
