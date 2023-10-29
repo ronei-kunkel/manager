@@ -21,6 +21,7 @@ final class GitHubPushEventController
   {
     try {
       Log::debug(json_encode($this->request->all()));
+
       Log::debug(json_encode($this->request->headers->all()));
       $gitHubPushEvent = $this->eventBuilder
         ->fromGitHub($this->request->all())
