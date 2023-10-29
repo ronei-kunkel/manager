@@ -20,6 +20,7 @@ final class GitHubPushEventController
   public function __invoke(): JsonResponse
   {
     try {
+
       $gitHubPushEvent = $this->eventBuilder
         ->fromGitHub($this->request->all())
         ->defineGitHubPushEvent()

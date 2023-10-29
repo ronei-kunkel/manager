@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 use Manager\Notification\Infra\Controller\GitHubPushEventController;
+use Manager\Notification\Infra\Middleware\GitHubSignatureVerify;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,7 +16,8 @@ use Manager\Notification\Infra\Controller\GitHubPushEventController;
 |
 */
 
-Route::prefix('github')->group(function () {
+Route::prefix('github')->middleware([
+    GitHubSignatureVerify::class,
+])->group(function () {
     Route::post('/push', GitHubPushEventController::class);
 });
-
