@@ -4,6 +4,7 @@ namespace Manager\Notification\Infra\Controller;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Manager\Notification\Application\Builder\EventBuilder;
 use Manager\Notification\Application\UseCase\CreatePushEventNotification;
 
@@ -19,6 +20,8 @@ final class GitHubPushEventController
   public function __invoke(): JsonResponse
   {
     try {
+      Log::debug(json_encode($this->request->all()));
+      Log::debug(json_encode($this->request->headers->all()));
       $gitHubPushEvent = $this->eventBuilder
         ->fromGitHub($this->request->all())
         ->defineGitHubPushEvent()
