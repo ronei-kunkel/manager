@@ -20,6 +20,7 @@ final class GitHubPushEventController
   public function __invoke(): JsonResponse
   {
     try {
+
       Log::debug(json_encode($this->request->all()));
 
       Log::debug(json_encode($this->request->headers->all()));
