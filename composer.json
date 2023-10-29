@@ -1,9 +1,17 @@
 {
-    "name": "laravel/laravel",
-    "type": "project",
-    "description": "The skeleton application for the Laravel framework.",
-    "keywords": ["laravel", "framework"],
-    "license": "MIT",
+    "name": "ronei-kunkel/manager",
+    "description": "Manager is an app to manage the versioning of any apps running over my infra-digitalocean project of infrastructure. Written using Laravel php framework, following DDD concepts and written over clean architecture.",
+    "keywords": [
+        "ddd",
+        "clean-architecture"
+    ],
+    "license": "",
+    "authors": [
+        {
+            "name": "Ronei Kunkel",
+            "email": "ronei.kunkel@gmail.com"
+        }
+    ],
     "require": {
         "php": "^8.1",
         "guzzlehttp/guzzle": "^7.2",
@@ -23,6 +31,7 @@
     "autoload": {
         "psr-4": {
             "App\\": "app/",
+            "Manager\\": "src/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
         }
@@ -45,7 +54,8 @@
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
-        ]
+        ],
+        "test": "docker container exec -it $(docker ps -q -f name=main_php82) sh -c \"cd www/manager && php vendor/bin/pest\""
     },
     "extra": {
         "laravel": {
