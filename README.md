@@ -11,58 +11,26 @@
 7. If failed, we need to revert it. Otherwise, if apply alterations with success, we need to set the status from processing to finalized.
 8. finally we need to remove the notification from queue, and consult the queue again to check if have more notifications to repeat the process or finalize the flow.
 
-## The system design concept
+## TASKS
 
-### Event
+### Notification Flow
 
-- id
-- Platform
-  - hash
-  - name
-  - url
-- {EventType}
-  - id
-  - hash
-  - ...
+- [x] receive the notification
+- [x] validate the signature
+- [ ] check if is a merge push notification on master branch or is a common push notification
+- [ ] get commits of push in github rest api to avoid unlist all commit when push have more than 10 commits (10 commits are the max quantity of commits listed in push notification)
+- [ ] save the notification on database
+- [ ] insert the notification on queue
+- [ ] throw event
+- [ ] return response
 
-## Data by EventType
+### Deployment Flow
 
-### push
-
-- id
-- hash
-- Repository
-  - id
-  - name
-  - description
-  - Platform
-  - Owner
-    - id
-    - nickName
-    - email
-    - image
-  - cloneUrl
-  - defaultBranch
-- Merger
-  - id
-  - nickName
-  - image
-- Commits
-
-      to populate this values, need to consume the https://docs.github.com/en/rest/commits/commits?apiVersion=2022-11-28
-  - Commit
-    - id
-    - message
-    - Author
-      - id
-      - email
-      - nickName
-    - Commiter
-
-          when is a merge commit in GitHub, the Commiter have different values of Author, but have the same key attributes
-    - timestamp
-  - Commit
-    - ...
-  - Commit
-    - ...
-- targetBranchReference
+- [ ] react when event are throwed
+- [ ] trigger the worker
+- [ ] consumn first queue message
+- [ ] send deploy start to github (are this possible?)
+- [ ] run the deploy script
+- [ ] remove current message from queue
+- [ ] save deployment execution status on database
+- [ ] send deploy fialize to github (if possible)
