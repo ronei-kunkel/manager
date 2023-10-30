@@ -34,3 +34,7 @@
 - [ ] remove current message from queue
 - [ ] save deployment execution status on database
 - [ ] send deploy fialize to github (if possible)
+
+### Implantation Flow
+
+TODO: segregate the notification on Notification Flow when are new project
