@@ -21,6 +21,7 @@
 - [ ] get commits of push in github rest api to avoid unlist all commit when push have more than 10 commits (10 commits are the max quantity of commits listed in push notification)
 - [ ] save the notification on database
 - [ ] insert the notification on queue
+- [ ] send deploy queued to github (https://docs.github.com/en/rest/deployments?apiVersion=2022-11-28)
 - [ ] throw event
 - [ ] return response
 
@@ -29,11 +30,11 @@
 - [ ] react when event are throwed
 - [ ] trigger the worker
 - [ ] consumn first queue message
-- [ ] send deploy start to github (are this possible?)
+- [ ] send deploy start to github (https://docs.github.com/en/rest/deployments?apiVersion=2022-11-28)
 - [ ] run the deploy script
 - [ ] remove current message from queue
 - [ ] save deployment execution status on database
-- [ ] send deploy fialize to github (if possible)
+- [ ] send deploy status to github (https://docs.github.com/en/rest/deployments?apiVersion=2022-11-28)
 
 ### Implantation Flow
 
