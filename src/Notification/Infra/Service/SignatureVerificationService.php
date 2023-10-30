@@ -6,7 +6,7 @@ final class SignatureVerificationService
 {
   public function verify(string $data, string $signature): bool
   {
-    $dataHashed = hash_hmac('sha256', $data, $_ENV['GITHUB_WEBHOOK_KEY']);
+    $dataHashed = 'sha256=' . hash_hmac('sha256', $data, $_ENV['GITHUB_WEBHOOK_KEY']);
 
     return hash_equals($dataHashed, $signature);
   }

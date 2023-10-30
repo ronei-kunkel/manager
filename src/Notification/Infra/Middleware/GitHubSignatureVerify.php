@@ -23,7 +23,7 @@ final class GitHubSignatureVerify
       return new JsonResponse(['error' => 'Missing signature'], 403);
     }
 
-    if (!$this->signatureVerification->verify(json_encode($request->all()), $signature)) {
+    if (!$this->signatureVerification->verify($request->getContent(), $signature)) {
       return new JsonResponse(['error' => 'Signature mismatch'], 401);
     }
 
