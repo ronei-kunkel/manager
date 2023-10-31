@@ -20,7 +20,7 @@ final class Commit
 
   public function message(): string
   {
-      return $this->message;
+    return $this->message;
   }
 
   public function author(): Author
