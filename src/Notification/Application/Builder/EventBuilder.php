@@ -72,6 +72,7 @@ final class EventBuilder
   private function buildGitHubRepository(): Repository
   {
     return new Repository(
+      null,
       $this->notificationData['repository']['id'],
       $this->platform,
       $this->buildOwner(),

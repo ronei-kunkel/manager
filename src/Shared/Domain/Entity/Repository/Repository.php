@@ -7,7 +7,8 @@ use Manager\Shared\Domain\ValueObject\Platform;
 final class Repository
 {
   public function __construct(
-    private int $id,
+    private ?int $id,
+    private int $remoteId,
     private Platform $platform,
     private Owner $owner,
     private string $name,
@@ -20,6 +21,11 @@ final class Repository
   public function id(): int
   {
     return $this->id;
+  }
+
+  public function remoteId(): int
+  {
+    return $this->remoteId;
   }
 
   public function platform(): Platform
