@@ -7,7 +7,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Manager\Notification\Infra\Service\SignatureVerificationService;
 
-final class GitHubSignatureVerify
+final class GitHubSignatureVerifyMiddleware
 {
 
   public function __construct(
@@ -17,13 +17,12 @@ final class GitHubSignatureVerify
 
   public function handle(Request $request, Closure $next): JsonResponse
   {
-    $signature = $request->hasHeader('x-hub-signature-256') ? $request->header('x-hub-signature-256') : null;
 
-    if (!$signature) {
+    if (!$this->signatureVerification->hasValidSignature($request)) {
       return new JsonResponse(['error' => 'Missing signature'], 403);
     }
 
-    if (!$this->signatureVerification->verify($request->getContent(), $signature)) {
+    if (!$this->signatureVerification->verify($request)) {
       return new JsonResponse(['error' => 'Signature mismatch'], 401);
     }
 

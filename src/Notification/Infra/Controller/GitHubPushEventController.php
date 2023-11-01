@@ -4,7 +4,6 @@ namespace Manager\Notification\Infra\Controller;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use Manager\Notification\Application\Builder\EventBuilder;
 use Manager\Notification\Application\UseCase\CreatePushEventNotification;
 
