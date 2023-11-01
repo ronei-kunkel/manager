@@ -8,8 +8,4 @@ abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication;
 
-    public function opatest()
-    {
-        $this->postJson();
-    }
 }
