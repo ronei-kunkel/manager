@@ -22,7 +22,7 @@
     </source>
     <php>
         <env name="APP_ENV" value="testing"/>
-        <env name="TEST_SELF_URL" value="http://main_php"/>
+        <env name="BASE_URL" value="http://main_php"/>
         <env name="GITHUB_WEBHOOK_KEY" value="chaveteste"/>
         <env name="BCRYPT_ROUNDS" value="4"/>
         <env name="CACHE_DRIVER" value="array"/>

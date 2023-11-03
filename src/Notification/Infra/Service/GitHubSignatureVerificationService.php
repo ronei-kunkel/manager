@@ -4,7 +4,7 @@ namespace Manager\Notification\Infra\Service;
 
 use Illuminate\Http\Request;
 
-final class SignatureVerificationService
+final class GitHubSignatureVerificationService
 {
   private const HEADER = 'X-Hub-Signature-256';
   private const ALGO = 'sha256';

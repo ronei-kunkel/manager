@@ -29,4 +29,9 @@ final class CommitCollection implements \IteratorAggregate, \Countable
   {
     return $this->commits->count();
   }
+
+  public function getLast(): Commit
+  {
+    return $this->commits->offsetGet($this->count() - 1);
+  }
 }

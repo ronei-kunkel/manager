@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace Manager\Shared\Application\UseCase;
+namespace Manager\Notification\Application;
 
-final readonly class Output
+final readonly class NotificationOutput
 {
   public function __construct(
     public int $code,

@@ -41,8 +41,7 @@ expect()->extend('toBeOne', function () {
 
 function webhookSentPayload()
 {
-  return 
-'{
+  return '{
   "ref": "refs/heads/main",
   "before": "36df0b6680a7c8ce54789a7636b66266688ac864",
   "after": "cae90d8e65702aa26963f6070e6ed2c6f4502c78",

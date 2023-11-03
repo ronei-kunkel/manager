@@ -2,7 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
-use Manager\Notification\Infra\Controller\GitHubPushEventController;
+use Manager\Notification\Infra\Controller\GitHubNotifyController;
+use Manager\Notification\Infra\Middleware\GitHubAttachEventTypeOnRequestDataMiddleware;
 use Manager\Notification\Infra\Middleware\GitHubSignatureVerifyMiddleware;
 
 /*
@@ -18,6 +19,7 @@ use Manager\Notification\Infra\Middleware\GitHubSignatureVerifyMiddleware;
 
 Route::prefix('github')->middleware([
     GitHubSignatureVerifyMiddleware::class,
+    GitHubAttachEventTypeOnRequestDataMiddleware::class
 ])->group(function () {
-    Route::post('/push', GitHubPushEventController::class);
+    Route::post('/notify', GitHubNotifyController::class);
 });
