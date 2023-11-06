@@ -17,7 +17,7 @@ return new class extends Migration
             $table->text('message');
             $table->unsignedBigInteger('author_id');
             $table->unsignedBigInteger('committer_id');
-            $table->string('timestamp');
+            $table->timestamp('timestamp')->useCurrent();
 
             $table->foreign('event_id')->references('id')->on('event');
             $table->foreign('author_id')->references('id')->on('user');
