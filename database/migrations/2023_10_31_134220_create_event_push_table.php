@@ -12,15 +12,17 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('event_push', function (Blueprint $table) {
-            $table->unsignedBigInteger('event_id')->primary();
+            $table->unsignedBigInteger('event_id')->primary()->unique('event_id');
             $table->string('platform_hash');
             $table->unsignedBigInteger('repository_id');
-            $table->unsignedBigInteger('merger_id')->nullable();
+            $table->unsignedBigInteger('sender_id');
+            $table->boolean('deployable')->default(false);
             $table->string('target_branch');
 
             $table->foreign('event_id')->references('id')->on('event');
             $table->foreign('platform_hash')->references('hash')->on('platform');
-            $table->foreign('merger_id')->references('id')->on('user');
+            $table->foreign('repository_id')->references('id')->on('repository');
+            $table->foreign('sender_id')->references('id')->on('user');
         });
     }
 

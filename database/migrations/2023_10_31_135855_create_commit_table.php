@@ -12,16 +12,18 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('commit', function (Blueprint $table) {
-            $table->unsignedBigInteger('event_id')->primary();
+            $table->unsignedBigInteger('event_id');
             $table->string('hash');
             $table->text('message');
             $table->unsignedBigInteger('author_id');
             $table->unsignedBigInteger('committer_id');
             $table->string('timestamp');
 
-            $table->foreign('event_id')->references('id')->on('notified_event');
+            $table->foreign('event_id')->references('id')->on('event');
             $table->foreign('author_id')->references('id')->on('user');
             $table->foreign('committer_id')->references('id')->on('user');
+
+            $table->unique(['event_id', 'hash']);
         });
     }
 

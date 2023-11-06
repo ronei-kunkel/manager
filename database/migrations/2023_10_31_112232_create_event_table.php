@@ -11,14 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('notification', function (Blueprint $table) {
+        Schema::create('event', function (Blueprint $table) {
             $table->id();
+            $table->string('hash');
             $table->string('platform_hash');
-            $table->unsignedBigInteger('repository_id');
-            $table->timestamp('received_at')->useCurrent();
+            $table->dateTime('received_at')->useCurrent();
 
             $table->foreign('platform_hash')->references('hash')->on('platform');
-            $table->foreign('repository_id')->references('id')->on('repository');
         });
     }
 
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('notification');
+        Schema::dropIfExists('event');
     }
 };
