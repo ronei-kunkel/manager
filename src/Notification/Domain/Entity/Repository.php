@@ -1,13 +1,13 @@
 <?php declare(strict_types=1);
 
-namespace Manager\Shared\Domain\Entity\Repository;
+namespace Manager\Notification\Domain\Entity;
 
-use Manager\Shared\Domain\ValueObject\Platform;
+use Manager\Notification\Domain\Entity\Owner;
+use Manager\Notification\Domain\Type\Platform;
 
 final class Repository
 {
   public function __construct(
-    private ?int $id,
     private int $remoteId,
     private Platform $platform,
     private Owner $owner,
@@ -16,11 +16,6 @@ final class Repository
     private string $defaultBranch,
     private string $description
   ) {
-  }
-
-  public function id(): int
-  {
-    return $this->id;
   }
 
   public function remoteId(): int

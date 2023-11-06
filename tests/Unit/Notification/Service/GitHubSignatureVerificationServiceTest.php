@@ -5,7 +5,7 @@ use Illuminate\Http\Request;
 
 test("Return true when have signature in sha256 to validate", function ()
 {
-  $content = webhookSentPayload();
+  $content = gitHubPushEventDeployableWebhookSentPayload();
   $hash = 'sha256=' . hash_hmac('sha256', $content, $_ENV['GITHUB_WEBHOOK_KEY']);
 
   $request = new Request(server: ['HTTP_X-Hub-Signature-256' => $hash], content: $content);
@@ -17,7 +17,7 @@ test("Return true when have signature in sha256 to validate", function ()
 
 test("Return false when not have signature", function ()
 {
-  $content = webhookSentPayload();
+  $content = gitHubPushEventDeployableWebhookSentPayload();
   $request = new Request(content: $content);
 
   $service = new GitHubSignatureVerificationService();
@@ -27,7 +27,7 @@ test("Return false when not have signature", function ()
 
 test("Return false when have signature to validate but is not sha256", function ()
 {
-  $content = webhookSentPayload();
+  $content = gitHubPushEventDeployableWebhookSentPayload();
   $hash = 'sha1=' . hash_hmac('sha1', $content, $_ENV['GITHUB_WEBHOOK_KEY']);
 
   $request = new Request(server: ['HTTP_X-Hub-Signature-256' => $hash], content: $content);
@@ -39,7 +39,7 @@ test("Return false when have signature to validate but is not sha256", function 
 
 test("Return true when have signatured sha256", function ()
 {
-  $content = webhookSentPayload();
+  $content = gitHubPushEventDeployableWebhookSentPayload();
   $hash = 'sha256=' . hash_hmac('sha256', $content, $_ENV['GITHUB_WEBHOOK_KEY']);
 
   $request = new Request(server: ['HTTP_X-Hub-Signature-256' => $hash], content: $content);
@@ -51,7 +51,7 @@ test("Return true when have signatured sha256", function ()
 
 test("Return false when have invalid signature sha256", function ()
 {
-  $content = webhookSentPayload();
+  $content = gitHubPushEventDeployableWebhookSentPayload();
   $hash = 'sha256=' . hash_hmac('sha256', $content, 'invalid_secret');
 
   $request = new Request(server: ['HTTP_X-Hub-Signature-256' => $hash], content: $content);

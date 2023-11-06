@@ -4,15 +4,15 @@ namespace Manager\Notification\Infra\Controller;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Manager\Notification\Application\UseCase\RegisterGitHubEvent;
-use Manager\Notification\Infra\Factory\EventFactory;
+use Manager\Notification\Application\Factory\GitHubEventInputFactory;
+use Manager\Notification\Application\UseCase\RegisterGitHubPushEvent;
 
-final class GitHubNotifyController
+final class GitHubPushEventController
 {
   public function __construct(
     private Request $request,
-    private RegisterGitHubEvent $registerGitHubEvent,
-    private EventFactory $eventFactory
+    private GitHubEventInputFactory $gitHubEventInputFactory,
+    private RegisterGitHubPushEvent $registerGitHubEvent
   ){
   }
 
@@ -21,9 +21,9 @@ final class GitHubNotifyController
     try {
       $data = $this->request->all();
 
-      $eventInput = $this->eventFactory->createGitHubEvent($data);
+      $event = $this->gitHubEventInputFactory->createPushEvent($data);
 
-      $output = $this->registerGitHubEvent->handle($eventInput);
+      $output = $this->registerGitHubEvent->handle($event);
 
       $data = [
         "message" => $output->message

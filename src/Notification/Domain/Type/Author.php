@@ -1,21 +1,13 @@
 <?php declare(strict_types=1);
 
-namespace Manager\Shared\Domain\Entity\Commit;
+namespace Manager\Notification\Domain\Type;
 
-use Manager\Shared\Domain\Contract\User;
-
-final class Committer implements User
+final class Author
 {
   public function __construct(
-    private ?int $id,
     private string $nickName,
     private string $email
   ) {
-  }
-
-  public function id(): ?int
-  {
-    return $this->id;
   }
 
   public function nickName(): string

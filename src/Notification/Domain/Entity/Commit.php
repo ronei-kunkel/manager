@@ -1,6 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace Manager\Shared\Domain\Entity\Commit;
+namespace Manager\Notification\Domain\Entity;
+
+use Manager\Notification\Domain\Type\Author;
+use Manager\Notification\Domain\Type\Committer;
 
 final class Commit
 {

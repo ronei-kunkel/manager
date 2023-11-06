@@ -5,7 +5,7 @@ use Manager\Notification\Infra\Service\GitHubEventTypeService;
 
 test("Throw exception when not have event type header", function ()
 {
-  $content = webhookSentPayload();
+  $content = gitHubPushEventDeployableWebhookSentPayload();
   $request = new Request(content: $content);
 
   $service = new GitHubEventTypeService();
@@ -15,7 +15,7 @@ test("Throw exception when not have event type header", function ()
 
 test("Return event type", function ()
 {
-  $content = webhookSentPayload();
+  $content = gitHubPushEventDeployableWebhookSentPayload();
   $request = new Request(server: ['HTTP_X-GitHub-Event' => 'event'], content: $content);
 
   $service = new GitHubEventTypeService();

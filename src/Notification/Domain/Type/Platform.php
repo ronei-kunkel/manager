@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Manager\Shared\Domain\ValueObject;
+namespace Manager\Notification\Domain\Type;
 
 final class Platform
 {

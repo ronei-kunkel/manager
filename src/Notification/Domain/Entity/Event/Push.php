@@ -2,37 +2,32 @@
 
 namespace Manager\Notification\Domain\Entity\Event;
 
-use Manager\Shared\Domain\Contract\Event;
-use Manager\Shared\Domain\Collection\CommitCollection;
-use Manager\Shared\Domain\Entity\Repository\Repository;
-use Manager\Shared\Domain\ValueObject\Merger;
-use Manager\Shared\Domain\ValueObject\Platform;
+use Manager\Notification\Domain\Entity\Repository;
+use Manager\Notification\Domain\Entity\Sender;
+use Manager\Notification\Domain\Type\CommitCollection;
+use Manager\Notification\Domain\Type\Platform;
+use Manager\Notification\Domain\Type\Reference;
 
-final class Push implements Event
+final class Push
 {
-  private const HASH = 'push';
-
-  private bool $isMerge = false;
-
   public function __construct(
-    private ?int $id,
+    private bool $deployable,
+    private Reference $reference,
     private Platform $platform,
     private Repository $repository,
-    private ?Merger $merger,
+    private Sender $sender,
     private CommitCollection $commits,
-    private string $targetBranchReference
   ) {
-    $this->checkIsMerge();
   }
 
-  public function id(): ?int
+  public function deployable(): bool
   {
-    return $this->id;
+    return $this->deployable;
   }
 
-  public function hash(): string
+  public function reference(): Reference
   {
-    return self::HASH;
+    return $this->reference;
   }
 
   public function platform(): Platform
@@ -40,28 +35,18 @@ final class Push implements Event
     return $this->platform;
   }
 
-  public function commits(): CommitCollection
-  {
-    return $this->commits;
-  }
-
   public function repository(): Repository
   {
     return $this->repository;
   }
 
-  private function checkIsMerge(): void
+  public function sender(): Sender
   {
-    $ref = explode('/', $this->targetBranchReference)[2];
+    return $this->sender;
+  }
 
-    $pushToDefaultBranch = ($ref === $this->repository->defaultBranch());
-
-    $lastCommit = $this->commits->getLast();
-
-    $fromMergedPullRequest = ($lastCommit->commiter()->nickName() === 'web-flow');
-
-    if($pushToDefaultBranch and $fromMergedPullRequest) {
-      $this->isMerge = true;
-    }
+  public function commits(): CommitCollection
+  {
+    return $this->commits;
   }
 }

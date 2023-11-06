@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace Manager\Shared\Domain\Collection;
+namespace Manager\Notification\Domain\Type;
 
-use Manager\Shared\Domain\Entity\Commit\Commit;
+use Manager\Notification\Domain\Entity\Commit;
 
 final class CommitCollection implements \IteratorAggregate, \Countable
 {

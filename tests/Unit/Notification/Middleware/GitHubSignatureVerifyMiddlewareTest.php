@@ -34,7 +34,7 @@ test("Validate signature", function ()
 {
   $middleware = resolve(GitHubSignatureVerifyMiddleware::class);
 
-  $content = webhookSentPayload();
+  $content = gitHubPushEventDeployableWebhookSentPayload();
   $hash = 'sha256=' . hash_hmac('sha256', $content, $_ENV['GITHUB_WEBHOOK_KEY']);
 
   $request = new Request(server: ['HTTP_X-Hub-Signature-256' => $hash], content: $content);

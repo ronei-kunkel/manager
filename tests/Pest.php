@@ -39,7 +39,7 @@ expect()->extend('toBeOne', function () {
 |
 */
 
-function webhookSentPayload()
+function gitHubPushEventDeployableWebhookSentPayload()
 {
   return '{
   "ref": "refs/heads/main",

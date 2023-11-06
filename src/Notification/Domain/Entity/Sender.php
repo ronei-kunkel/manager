@@ -1,22 +1,20 @@
 <?php declare(strict_types=1);
 
-namespace Manager\Shared\Domain\Entity\Repository;
+namespace Manager\Notification\Domain\Entity;
 
-use Manager\Shared\Domain\Contract\User;
-
-final class Owner implements User
+final class Sender
 {
   public function __construct(
-    private ?int $id,
+    private int $remoteId,
     private string $nickName,
     private string $email,
     private string $image,
   ) {
   }
 
-  public function id(): ?int
+  public function remoteId(): ?int
   {
-    return $this->id;
+    return $this->remoteId;
   }
 
   public function nickName(): string

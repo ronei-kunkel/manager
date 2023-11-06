@@ -2,13 +2,12 @@
 
 use Manager\Notification\Infra\Middleware\GitHubAttachEventTypeOnRequestDataMiddleware;
 use Illuminate\Http\Request;
-use Illuminate\Http\JsonResponse;
 
 test("Event type attached on request", function ()
 {
   $middleware = resolve(GitHubAttachEventTypeOnRequestDataMiddleware::class);
 
-  $content = webhookSentPayload();
+  $content = gitHubPushEventDeployableWebhookSentPayload();
 
   $request = new Request(server: ['HTTP_X-GitHub-Event' => 'event'], content: $content);
 
@@ -23,7 +22,7 @@ test("Return 400 if missing event type header", function ()
 {
   $middleware = resolve(GitHubAttachEventTypeOnRequestDataMiddleware::class);
 
-  $content = webhookSentPayload();
+  $content = gitHubPushEventDeployableWebhookSentPayload();
 
   $request = new Request(content: $content);
 
