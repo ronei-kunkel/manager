@@ -28,7 +28,7 @@ final class Push
 
     $toDefaultBranch = ($this->reference->targetBranch() === $this->repository->defaultBranch());
 
-    $this->deployable = ($lastCommit->isMerge() and $toDefaultBranch);
+    $this->deployable = (($lastCommit->isMerge() and $toDefaultBranch) or $toDefaultBranch);
   }
 
   public function deployable(): bool
