@@ -19,7 +19,8 @@
 - [x] validate the signature
 - [x] define if is deployable push notification default branch
 - [ ] get commits of push in github rest api to avoid unlist all commit when push have more than 10 commits (10 commits are the max quantity of commits listed in push notification) [Future Feature]
-- [x] save the notification on database
+- [x] save the event on database
+- [ ] save commits on database
 - [ ] insert the notification on queue
 - [ ] send deploy queued to github (https://docs.github.com/en/rest/deployments?apiVersion=2022-11-28) [Future Feature]
 - [ ] throw event
