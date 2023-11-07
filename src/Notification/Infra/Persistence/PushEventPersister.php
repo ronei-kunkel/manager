@@ -12,7 +12,6 @@ final class PushEventPersister
     return DB::transaction(function () use ($push) {
 
       $ownerId = DB::table('user')
-        ->where('email', $push->repository()->owner()->email())
         ->where('nickname', $push->repository()->owner()->nickName())
         ->select('id')
         ->first();
@@ -68,7 +67,6 @@ final class PushEventPersister
       ]);
 
       $senderId = DB::table('user')
-      ->where('email', $push->sender()->email())
       ->where('nickname', $push->sender()->nickName())
       ->select('id')
       ->first();
