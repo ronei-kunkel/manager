@@ -9,6 +9,12 @@ final class Reference
     private string $initialCommit,
     private string $finalCommit
   ) {
+    $this->adjustTargetBranch();
+  }
+
+  public function adjustTargetBranch(): void
+  {
+    $this->targetBranch = explode('/', $this->targetBranch)[2];
   }
 
   public function targetBranch(): string

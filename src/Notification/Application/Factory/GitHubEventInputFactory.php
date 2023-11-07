@@ -75,7 +75,7 @@ final class GitHubEventInputFactory
   private function createRepository(): self
   {
     if (!$this->platform) {
-      throw new \Exception("Internal Error: Create Platform before create Repository is required", 500);
+      throw new \Exception('Internal Error: Create Platform before create Repository is required');
     }
 
     $owner = new Owner(
@@ -136,14 +136,13 @@ final class GitHubEventInputFactory
       $commit['committer']['email']
     );
 
-    $commit = new Commit(
+    return new Commit(
       $commit['id'],
       $commit['message'],
       $author,
       $committer,
+      $this->platform,
       $commit['timestamp']
     );
-
-    return $commit;
   }
 }

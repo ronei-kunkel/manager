@@ -55,32 +55,12 @@ final class PushEventBuilder
 
   public function build(): Push
   {
-    $this->checkDeployablePush();
-
     return new Push(
-      $this->deployable,
       $this->reference,
       $this->platform,
       $this->repository,
       $this->sender,
       $this->commits
     );
-  }
-
-  private function checkDeployablePush(): void
-  {
-    $fromMerge = false;
-
-    $lastCommit = $this->commits->getLast();
-
-    if($this->platform->hash() === 'github') {
-      $fromMerge = ($lastCommit->commiter()->nickName() === 'web-flow');
-    }
-
-    $targetBranch = explode('/', $this->reference->targetBranch())[2];
-
-    $toDefaultBranch = ($targetBranch === $this->repository->defaultBranch());
-
-    $this->deployable = ($fromMerge and $toDefaultBranch);
   }
 }

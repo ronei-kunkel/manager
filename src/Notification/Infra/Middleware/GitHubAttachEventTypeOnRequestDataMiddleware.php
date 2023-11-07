@@ -20,7 +20,7 @@ final class GitHubAttachEventTypeOnRequestDataMiddleware
     try {
 
       $request->merge([
-        "event_type" => $this->eventTypeVerification->getEventType($request)
+        'event_type' => $this->eventTypeVerification->getEventType($request)
       ]);
 
       return $next($request);

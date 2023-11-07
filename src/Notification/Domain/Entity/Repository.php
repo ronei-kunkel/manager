@@ -2,7 +2,6 @@
 
 namespace Manager\Notification\Domain\Entity;
 
-use Manager\Notification\Domain\Entity\Owner;
 use Manager\Notification\Domain\Type\Platform;
 
 final class Repository

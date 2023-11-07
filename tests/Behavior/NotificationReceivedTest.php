@@ -11,5 +11,6 @@ test('Process GitHub Push notification received', function ()
 
   $response = $this->postJson($_ENV['BASE_URL'].'/api/github/push', json_decode(gitHubPushEventDeployableWebhookSentPayload(), true), $headers);
 
-  expect($response->getStatusCode())->toBe(200)->and($response->getContent())->toBe('{"message":"Not implemented yet"}');
+  expect($response->getContent())->toBe('{}');
+  expect($response->getStatusCode())->toBe(200);
 });

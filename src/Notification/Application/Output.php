@@ -2,7 +2,7 @@
 
 namespace Manager\Notification\Application;
 
-final readonly class NotificationOutput
+final readonly class Output
 {
   public function __construct(
     public int $code,

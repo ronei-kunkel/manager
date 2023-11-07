@@ -10,14 +10,25 @@ use Manager\Notification\Domain\Type\Reference;
 
 final class Push
 {
+  private bool $deployable;
+
   public function __construct(
-    private bool $deployable,
     private Reference $reference,
     private Platform $platform,
     private Repository $repository,
     private Sender $sender,
     private CommitCollection $commits,
   ) {
+    $this->checkIfDeployable();
+  }
+
+  private function checkIfDeployable(): void
+  {
+    $lastCommit = $this->commits->getLast();
+
+    $toDefaultBranch = ($this->reference->targetBranch() === $this->repository->defaultBranch());
+
+    $this->deployable = ($lastCommit->isMerge() and $toDefaultBranch);
   }
 
   public function deployable(): bool

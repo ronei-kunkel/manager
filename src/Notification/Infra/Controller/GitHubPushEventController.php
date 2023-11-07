@@ -5,14 +5,14 @@ namespace Manager\Notification\Infra\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Manager\Notification\Application\Factory\GitHubEventInputFactory;
-use Manager\Notification\Application\UseCase\RegisterGitHubPushEvent;
+use Manager\Notification\Application\UseCase\RegisterPushEvent;
 
 final class GitHubPushEventController
 {
   public function __construct(
     private Request $request,
     private GitHubEventInputFactory $gitHubEventInputFactory,
-    private RegisterGitHubPushEvent $registerGitHubEvent
+    private RegisterPushEvent $registerPushEvent
   ){
   }
 
@@ -23,11 +23,13 @@ final class GitHubPushEventController
 
       $event = $this->gitHubEventInputFactory->createPushEvent($data);
 
-      $output = $this->registerGitHubEvent->handle($event);
+      $output = $this->registerPushEvent->handle($event);
 
-      $data = [
-        "message" => $output->message
-      ];
+      $data = null;
+
+      if(!is_null($output->message)){
+        $data = ['message' => $output->message];
+      }
 
       return new JsonResponse($data, $output->code);
     } catch (\Exception $e) {
