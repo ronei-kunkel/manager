@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('event_push', function (Blueprint $table) {
-            $table->unsignedBigInteger('event_id')->primary()->unique('event_id');
+            $table->unsignedBigInteger('event_id')->primary();
             $table->string('platform_hash');
             $table->unsignedBigInteger('repository_id');
             $table->unsignedBigInteger('sender_id');
