@@ -12,6 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('commit', function (Blueprint $table) {
+            $table->id();
             $table->unsignedBigInteger('event_id');
             $table->string('hash');
             $table->text('message');
