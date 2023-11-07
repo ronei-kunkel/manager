@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('platform', function (Blueprint $table) {
-            $table->string('hash')->primary();
+            $table->string('hash')->primary()->unique('hash');
             $table->string('name');
             $table->string('url');
             $table->dateTime('created_at')->useCurrent();
