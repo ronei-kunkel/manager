@@ -82,7 +82,6 @@ final class PushEventPersister
 
       $senderId = ($senderId instanceof \stdClass) ? $senderId->id : $senderId;
 
-
       return DB::table('event_push')->insert([
         'event_id' => $eventId,
         'platform_hash' => $push->platform()->hash(),
