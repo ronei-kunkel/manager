@@ -5,9 +5,9 @@ namespace Manager\Notification\Infra\Persistence;
 use DB;
 use Manager\Notification\Domain\Entity\Event\Push;
 
-final class PushEventPersister
+final class PushEventMysqlPersister
 {
-  public function persist(Push $push): ?int
+  public function save(Push $push): int
   {
     return DB::transaction(function () use ($push) {
 
@@ -82,14 +82,20 @@ final class PushEventPersister
 
       $senderId = ($senderId instanceof \stdClass) ? $senderId->id : $senderId;
 
-      return DB::table('event_push')->insert([
+      $pushEventRegistered =  DB::table('event_push')->insert([
         'event_id' => $eventId,
         'platform_hash' => $push->platform()->hash(),
         'repository_id'  => $repositoryId,
         'sender_id' => $senderId,
         'deployable' => (int) $push->deployable(),
         'target_branch' => $push->reference()->targetBranch()
-      ]) ? $eventId : null;
+      ]);
+
+      if(!$pushEventRegistered) {
+        throw new \Exception("Error on save notification");
+      }
+
+      return $eventId;
     });
   }
 }

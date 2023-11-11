@@ -4,12 +4,12 @@ namespace Manager\Notification\Application\UseCase;
 
 use Manager\Notification\Application\Output;
 use Manager\Notification\Domain\Entity\Event\Push;
-use Manager\Notification\Infra\Persistence\PushEventPersister;
+use Manager\Notification\Infra\Persistence\PushEventMysqlPersister;
 
 final class RegisterPushEvent
 {
   public function __construct(
-    private PushEventPersister $pushEventPersister,
+    private PushEventMysqlPersister $pushEventMysqlPersister,
     // private PushEventEnqueuer $pushEventEnqueuer,
   ) {
   }
@@ -18,7 +18,7 @@ final class RegisterPushEvent
   {
     try {
 
-      $this->pushEventPersister->persist($event);
+      $this->pushEventMysqlPersister->save($event);
 
       // $this->pushEventEnqueuer->push($event);
 
