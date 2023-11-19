@@ -1,7 +1,11 @@
 {
     "name": "ronei-kunkel/manager",
     "description": "Manager is an app to manage the versioning of any apps running over my infra-digitalocean project of infrastructure. Written using Laravel php framework, following DDD concepts and written over clean architecture.",
+    "type": "project",
     "keywords": [
+        "php",
+        "swoole",
+        "hyperf",
         "ddd",
         "clean-architecture"
     ],
@@ -13,67 +17,69 @@
         }
     ],
     "require": {
-        "php": "^8.1",
-        "guzzlehttp/guzzle": "^7.2",
-        "laravel/framework": "^10.10"
+        "php": "^8.2",
+        "hyperf/cache": "~3.0.0",
+        "hyperf/command": "~3.0.0",
+        "hyperf/config": "~3.0.0",
+        "hyperf/db-connection": "~3.0.0",
+        "hyperf/engine": "^2.10",
+        "hyperf/framework": "~3.0.0",
+        "hyperf/guzzle": "~3.0.0",
+        "hyperf/http-server": "~3.0.0",
+        "hyperf/logger": "~3.0.0",
+        "hyperf/memory": "~3.0.0",
+        "hyperf/process": "~3.0.0",
+        "hyperf/database": "~3.0.0",
+        "hyperf/redis": "~3.0.0",
+        "hyperf/amqp": "~3.0.0"
     },
     "require-dev": {
-        "fakerphp/faker": "^1.9.1",
-        "laravel/pint": "^1.0",
-        "laravel/sail": "^1.18",
-        "mockery/mockery": "^1.4.4",
-        "nunomaduro/collision": "^7.0",
-        "nunomaduro/phpinsights": "^2.9",
-        "pestphp/pest": "^2.24",
-        "pestphp/pest-plugin-drift": "^2.5",
-        "phpmetrics/phpmetrics": "^2.8",
-        "phpunit/phpunit": "^10.1",
-        "spatie/laravel-ignition": "^2.0"
+        "friendsofphp/php-cs-fixer": "^3.0",
+        "hyperf/devtool": "~3.0.0",
+        "hyperf/testing": "~3.0.0",
+        "mockery/mockery": "^1.0",
+        "phpstan/phpstan": "^1.0",
+        "swoole/ide-helper": "^5.0"
+    },
+    "suggest": {
+        "ext-openssl": "Required to use HTTPS.",
+        "ext-json": "Required to use JSON.",
+        "ext-pdo": "Required to use MySQL Client.",
+        "ext-pdo_mysql": "Required to use MySQL Client.",
+        "ext-redis": "Required to use Redis Client."
     },
     "autoload": {
         "psr-4": {
             "App\\": "app/",
-            "Manager\\": "src/",
-            "Database\\Factories\\": "database/factories/",
-            "Database\\Seeders\\": "database/seeders/"
-        }
+            "Manager\\": "src/"
+        },
+        "files": []
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\": "tests/"
+            "HyperfTest\\": "./test/"
         }
     },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "config": {
+        "optimize-autoloader": true,
+        "sort-packages": true
+    },
+    "extra": [],
     "scripts": {
-        "post-autoload-dump": [
-            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-            "@php artisan package:discover --ansi"
-        ],
-        "post-update-cmd": [
-            "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
-        ],
         "post-root-package-install": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
         ],
-        "post-create-project-cmd": [
-            "@php artisan key:generate --ansi"
+        "post-autoload-dump": [
+            "rm -rf runtime/container"
         ],
-        "test": "docker container exec -it $(docker ps -q -f name=main_php82) sh -c \"cd www/manager && php vendor/bin/pest\""
-    },
-    "extra": {
-        "laravel": {
-            "dont-discover": []
-        }
-    },
-    "config": {
-        "optimize-autoloader": true,
-        "preferred-install": "dist",
-        "sort-packages": true,
-        "allow-plugins": {
-            "pestphp/pest-plugin": true,
-            "php-http/discovery": true,
-            "dealerdirect/phpcodesniffer-composer-installer": true
-        }
-    },
-    "minimum-stability": "stable",
-    "prefer-stable": true
+        "test": "co-phpunit --prepend test/bootstrap.php -c phpunit.xml --colors=always",
+        "cs-fix": "php-cs-fixer fix $1",
+        "analyse": "phpstan analyse --memory-limit 300M -l 0 -c phpstan.neon ./app ./config",
+        "start": [
+            "Composer\\Config::disableProcessTimeout",
+            "php ./bin/hyperf.php start"
+        ]
+    }
 }
