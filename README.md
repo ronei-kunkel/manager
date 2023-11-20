@@ -1,5 +1,11 @@
 # Manager
 
+## How run
+
+Here are all you need to run the project
+
+`sudo ./start.sh`
+
 ## The flow
 
 1. When GitHub send notification of push event, we received the notification, build own notification with relevant data and save it on database with waiting status.
