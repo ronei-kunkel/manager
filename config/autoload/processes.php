@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Manager\QueueWorker\EventReceived\Worker\EventReceivedConsumerWorker;
+use Manager\ProcessEvent\Infra\Worker\ProcessEventQueueConsumerWorker;
 
 /**
  * This file is part of Hyperf.
@@ -13,5 +13,5 @@ use Manager\QueueWorker\EventReceived\Worker\EventReceivedConsumerWorker;
  * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
  */
 return [
-  EventReceivedConsumerWorker::class,
+  ProcessEventQueueConsumerWorker::class,
 ];

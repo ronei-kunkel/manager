@@ -1,18 +1,18 @@
 <?php declare(strict_types=1);
 
-namespace Manager\QueueWorker\EventReceived\Worker;
+namespace Manager\ProcessEvent\Infra\Worker;
 
 use Hyperf\Amqp\Consumer;
 use Hyperf\Process\AbstractProcess;
-use Manager\QueueWorker\EventReceived\Queue\EventReceivedConsumerMessage;
+use Manager\ProcessEvent\Infra\Queue\Consumer\ProcessEventConsumerMessage;
 use Psr\Container\ContainerInterface;
 
-final class EventReceivedConsumerWorker extends AbstractProcess
+final class ProcessEventQueueConsumerWorker extends AbstractProcess
 {
   public function __construct(
     protected ContainerInterface $container,
     private Consumer $consumer,
-    private EventReceivedConsumerMessage $eventReceivedConsumerMessage
+    private ProcessEventConsumerMessage $eventReceivedConsumerMessage
   ) {
     parent::__construct($container);
   }
