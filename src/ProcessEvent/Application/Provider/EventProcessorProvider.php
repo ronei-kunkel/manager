@@ -2,7 +2,7 @@
 
 namespace Manager\ProcessEvent\Application\Provider;
 
-use Manager\ProcessEvent\Application\Contract\EventProcessorProviderInterface;
+use Manager\ProcessEvent\Application\Contract\EventProcessorInterface;
 use Manager\ProcessEvent\Application\UseCase\Ping\PingEventProcessor;
 use Manager\ProcessEvent\Domain\Contract\EventInterface;
 
@@ -10,7 +10,7 @@ use function Hyperf\Support\make;
 
 final class EventProcessorProvider
 {
-  private static function systemMakeEventProcessor(string $classname, EventInterface $event): EventProcessorProviderInterface
+  private static function systemMakeEventProcessor(string $classname, EventInterface $event): EventProcessorInterface
   {
     $processor = make($classname);
 
@@ -19,7 +19,7 @@ final class EventProcessorProvider
     return $processor;
   }
 
-  public static function make(EventInterface $event): EventProcessorProviderInterface
+  public static function make(EventInterface $event): EventProcessorInterface
   {
     switch ($event->getType()) {
       case 'ping':

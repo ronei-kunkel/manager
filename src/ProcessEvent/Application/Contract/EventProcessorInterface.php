@@ -4,7 +4,7 @@ namespace Manager\ProcessEvent\Application\Contract;
 
 use Manager\ProcessEvent\Domain\Contract\EventInterface;
 
-interface EventProcessorProviderInterface
+interface EventProcessorInterface
 {
   public function setEvent(EventInterface $event): void;
   public function process(): void;

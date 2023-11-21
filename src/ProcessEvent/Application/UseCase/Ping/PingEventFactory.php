@@ -2,10 +2,10 @@
 
 namespace Manager\ProcessEvent\Application\UseCase\Ping;
 
-use Manager\ProcessEvent\Application\Contract\EventProviderInterface;
+use Manager\ProcessEvent\Application\Contract\EventFactoryInterface;
 use Manager\ProcessEvent\Domain\Entity\PingEvent;
 
-final class PingEventFactory implements EventProviderInterface
+final class PingEventFactory implements EventFactoryInterface
 {
   public function __construct(
   ) {

@@ -3,10 +3,10 @@
 namespace Manager\ProcessEvent\Application\UseCase\Ping;
 
 use Manager\ProcessEvent\Application\Base\EventProcessor;
-use Manager\ProcessEvent\Application\Contract\EventProcessorProviderInterface;
+use Manager\ProcessEvent\Application\Contract\EventProcessorInterface;
 use Manager\ProcessEvent\Domain\Entity\PingEvent;
 
-final class PingEventProcessor extends EventProcessor implements EventProcessorProviderInterface
+final class PingEventProcessor extends EventProcessor implements EventProcessorInterface
 {
   protected function getEvent(): PingEvent
   {
