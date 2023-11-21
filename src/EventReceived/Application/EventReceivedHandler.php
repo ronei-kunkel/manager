@@ -3,8 +3,8 @@
 namespace Manager\EventReceived\Application;
 
 use Hyperf\Amqp\Producer;
-use Manager\EventReceived\Domain\Entity\Event;
-use Manager\EventReceived\Infra\Queue\EventReceivedMessage;
+use Manager\EventReceived\Domain\Factory\EventFactory;
+use Manager\EventReceived\Infra\Queue\Producer\EventReceivedMessage;
 
 final class EventReceivedHandler
 {
@@ -18,15 +18,11 @@ final class EventReceivedHandler
   public function handle(EventReceivedInput $input): void
   {
     try {
-        $eventType = $input->headers['x-github-event'][0];
-        $eventPlatform = explode('-', explode('/', $input->headers['user-agent'][0])[0])[0];
-        $eventContent = $input->body;
+      $event = EventFactory::make($input->headers, $input->body);
 
-        $event = new Event($eventType, $eventPlatform, $eventContent);
+      $this->message->setPayload($event->data());
 
-        $this->message->setPayload($event->data());
-
-        $this->producer->produce($this->message, true);
+      $this->producer->produce($this->message, true);
     } catch (\Throwable $th) {
       print_r(PHP_EOL);
       print_r($th->getMessage());
