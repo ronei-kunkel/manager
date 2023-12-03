@@ -25,7 +25,7 @@ Router::addGroup('/github', function() {
 },
 [
   'middleware' => [
-    GitHubSignatureVerifyMiddleware::class
+    // GitHubSignatureVerifyMiddleware::class
   ]
 ]);
 

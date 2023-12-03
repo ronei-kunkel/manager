@@ -2,32 +2,32 @@
 
 namespace Manager\ProcessEvent\Application\Provider;
 
-use Manager\ProcessEvent\Application\Contract\EventProcessorInterface;
-use Manager\ProcessEvent\Application\UseCase\Ping\PingEventProcessor;
+use Manager\ProcessEvent\Domain\Contract\EventProcessorInterface;
 use Manager\ProcessEvent\Domain\Contract\EventInterface;
-
-use function Hyperf\Support\make;
+use Manager\ProcessEvent\Infra\Service\ClassInstantiatorService;
 
 final class EventProcessorProvider
 {
-  private static function systemMakeEventProcessor(string $classname, EventInterface $event): EventProcessorInterface
+  public function __construct(
+    private ClassInstantiatorService $classInstantiatorService
+  ) {
+  }
+
+  public function make(EventInterface $event): EventProcessorInterface
   {
-    $processor = make($classname);
+    return $this->provideEventProcessor($event->processor(), $event);
+  }
+
+  private function provideEventProcessor(string $className, EventInterface $event): EventProcessorInterface
+  {
+    /**
+     * @var EventProcessorInterface
+     */
+    $processor = $this->classInstantiatorService->instantiate($className);
 
     $processor->setEvent($event);
 
     return $processor;
-  }
-
-  public static function make(EventInterface $event): EventProcessorInterface
-  {
-    switch ($event->getType()) {
-      case 'ping':
-        return self::systemMakeEventProcessor(PingEventProcessor::class, $event);
-
-      default:
-        throw new \Exception('Event Processor not implemented');
-    }
   }
 
 }

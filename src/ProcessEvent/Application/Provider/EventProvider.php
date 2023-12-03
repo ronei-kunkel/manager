@@ -2,33 +2,38 @@
 
 namespace Manager\ProcessEvent\Application\Provider;
 
-use Manager\ProcessEvent\Application\UseCase\Ping\PingEventFactory;
+use Manager\ProcessEvent\Application\Mapper\EventFactoryMapper;
+use Manager\ProcessEvent\Application\ProcessEventInput;
 use Manager\ProcessEvent\Domain\Base\Event;
-
-use function Hyperf\Support\make;
+use Manager\ProcessEvent\Infra\Service\ClassInstantiatorService;
+use Manager\ProcessEvent\Domain\Contract\EventFactoryInterface;
 
 final class EventProvider
 {
-  private static function systemMakeEvent(string $className, array $data): Event
-  {
-    $factory = make($className);
-    return $factory->make($data['type'], $data['platform'], $data['content']);
+  public function __construct(
+    private ClassInstantiatorService $classInstantiatorService,
+    private EventFactoryMapper $eventFactoryMapper
+  ) {
   }
 
-  public static function make(string $type, string $platform, array $content): Event
+  public function make(ProcessEventInput $input): ?Event
   {
-    $data = [
-      'type'     => $type,
-      'platform' => $platform,
-      'content'  => $content
-    ];
+    $factoryClassName = $this->eventFactoryMapper->of($input->type);
 
-    switch ($type) {
-      case 'ping':
-        return self::systemMakeEvent(PingEventFactory::class, $data);
-
-      default:
-        throw new \Exception('Event Not suported');
+    if(!$factoryClassName) {
+      return null;
     }
+
+    return $this->provideEvent($factoryClassName, $input);
+  }
+
+  private function provideEvent(string $className, ProcessEventInput $input): Event
+  {
+    /**
+     * @var EventFactoryInterface
+     */
+    $factory = $this->classInstantiatorService->instantiate($className);
+
+    return $factory->make($input->type, $input->platform, $input->content);
   }
 }

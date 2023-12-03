@@ -4,17 +4,17 @@ namespace Manager\ProcessEvent\Infra\Worker;
 
 use Hyperf\Amqp\Consumer;
 use Hyperf\Process\AbstractProcess;
-use Manager\ProcessEvent\Infra\Queue\Consumer\ProcessEventConsumerMessage;
+use Manager\ProcessEvent\Infra\Queue\Consumer\ProcessEventProcessedConsumerMessage;
 use Psr\Container\ContainerInterface;
 
-final class ProcessEventQueueConsumerWorker extends AbstractProcess
+final class ProcessEventProducedQueueConsumerWorker extends AbstractProcess
 {
-  public string $name = 'ProcessEventQueueConsumerWorker';
+  public string $name = 'ProcessEventProducedQueueConsumerWorker';
 
   public function __construct(
     protected ContainerInterface $container,
     private Consumer $consumer,
-    private ProcessEventConsumerMessage $eventReceivedConsumerMessage
+    private ProcessEventProcessedConsumerMessage $consumerMessage
   ) {
     parent::__construct($container);
   }
@@ -22,7 +22,7 @@ final class ProcessEventQueueConsumerWorker extends AbstractProcess
   public function handle(): never
   {
     while (true) {
-      $this->consumer->consume($this->eventReceivedConsumerMessage);
+      $this->consumer->consume($this->consumerMessage);
     }
   }
 }

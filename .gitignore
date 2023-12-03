@@ -8,15 +8,9 @@ runtime/
 vendor/
 .phpintel/
 .env
+.env.prod
 .DS_Store
 .phpunit*
 *.cache
 .vscode/
 annotations.md
-
-.docker/logs/rabbitmq/*
-!.docker/logs/rabbitmq/.gitkeep
-
-.docker/database/*
-.docker/queue/*
-!.docker/queue/.gitkeep

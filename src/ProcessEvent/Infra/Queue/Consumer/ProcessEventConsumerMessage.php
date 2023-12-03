@@ -22,7 +22,7 @@ final class ProcessEventConsumerMessage extends ConsumerMessage
   {
     try {
       $input = new ProcessEventInput($data['type'], $data['platform'], $data['content']);
-      $this->processEventHandler->handle($input); // return output?
+      $this->processEventHandler->handle($input); // what i do with output? Output are neccessary?
       return Result::ACK;
     } catch (\Throwable $th) {
       // in case of error on processment, the data need to be re-enqueued?

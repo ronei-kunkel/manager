@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Manager\ProcessEvent\Infra\Worker\ProcessEventProducedQueueConsumerWorker;
 use Manager\ProcessEvent\Infra\Worker\ProcessEventQueueConsumerWorker;
 
 /**
@@ -14,4 +15,5 @@ use Manager\ProcessEvent\Infra\Worker\ProcessEventQueueConsumerWorker;
  */
 return [
   ProcessEventQueueConsumerWorker::class,
+  ProcessEventProducedQueueConsumerWorker::class,
 ];

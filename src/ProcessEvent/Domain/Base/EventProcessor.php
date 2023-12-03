@@ -1,6 +1,7 @@
 <?php declare(strict_types=1);
 
-namespace Manager\ProcessEvent\Application\Base;
+namespace Manager\ProcessEvent\Domain\Base;
+
 use Manager\ProcessEvent\Domain\Contract\EventInterface;
 
 abstract class EventProcessor
@@ -15,5 +16,5 @@ abstract class EventProcessor
   /**
    * Override this return with the target event that implements the EventInterface
    */
-  abstract protected function getEvent(): EventInterface;
+  abstract public function getEvent(): EventInterface;
 }

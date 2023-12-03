@@ -1,3 +1,3 @@
 #!/bin/bash
 
-cd backend/manager && composer install && php ./bin/hyperf.php start
+cd manager/backend && composer install && php ./bin/hyperf.php start
