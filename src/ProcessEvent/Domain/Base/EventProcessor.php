@@ -16,5 +16,5 @@ abstract class EventProcessor
   /**
    * Override this return with the target event that implements the EventInterface
    */
-  abstract public function getEvent(): EventInterface;
+  abstract public function event(): EventInterface;
 }

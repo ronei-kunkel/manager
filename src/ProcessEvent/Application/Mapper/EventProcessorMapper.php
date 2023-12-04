@@ -13,7 +13,7 @@ final class EventProcessorMapper
 
   public function of(string $eventType): ?string
   {
-    if(!in_array($eventType, $this->map)) {
+    if(!in_array($eventType, array_keys($this->map))) {
       return null;
     }
 

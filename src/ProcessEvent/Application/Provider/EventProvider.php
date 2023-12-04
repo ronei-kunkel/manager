@@ -16,15 +16,15 @@ final class EventProvider
   ) {
   }
 
-  public function make(ProcessEventInput $input): ?Event
+  public function make(ProcessEventInput $input): Event
   {
-    $factoryClassName = $this->eventFactoryMapper->of($input->type);
+    $eventFactory = $this->eventFactoryMapper->of($input->type);
 
-    if(!$factoryClassName) {
-      return null;
+    if(!$eventFactory) {
+      throw new \RuntimeException("Factory for " . $input->type . " event are not implemented or mapped.");
     }
 
-    return $this->provideEvent($factoryClassName, $input);
+    return $this->provideEvent($eventFactory, $input);
   }
 
   private function provideEvent(string $className, ProcessEventInput $input): Event

@@ -25,8 +25,4 @@ abstract class Event implements EventInterface
   }
 
   abstract protected function populate(): void;
-
-  abstract public function processor(): string;
-
-  abstract public function factory(): string;
 }

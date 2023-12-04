@@ -5,6 +5,7 @@ namespace Manager\ProcessEvent\Application;
 use Manager\ProcessEvent\Application\Provider\EventProvider;
 use Manager\ProcessEvent\Application\Provider\EventProcessorProvider;
 use Manager\ProcessEvent\Domain\Contract\EventInterface;
+use Manager\ProcessEvent\Domain\Contract\EventProcessorInterface;
 
 final class ProcessEventHandler
 {
@@ -23,15 +24,13 @@ final class ProcessEventHandler
       $event = $this->eventProvider
         ->make($input);
 
-      // if(!$event) {
-      //   // todo log 'Have no support for precess this event type yet: ' . $input->type
-      // }
+      $eventProcessor = $this->eventProcessorProvider
+        ->make($event);
 
-      if($event) {
-        $this->eventProcessorProvider
-          ->make($event)
-          ->process();
-      }
+      /**
+       * @var EventProcessorInterface
+       */
+      $eventProcessor->process();
 
     } catch (\Throwable $th) {
       print_r($th->getMessage());
